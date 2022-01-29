@@ -1,8 +1,10 @@
 from constructs import Construct
 from aws_cdk import (
+    CfnOutput,
     Stack,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
+    aws_s3 as s3,
 )
 
 from cdk_dynamo_table_view import TableViewer
@@ -26,6 +28,14 @@ class CdkWorkshopStack(Stack):
             self, 'HelloHitCounter',
             downstream=my_lambda,
         )
+
+        bucket = s3.Bucket(
+            self, 's3cdkdatasyncevent', 
+            bucket_name='s3cdkdatasyncevent2022',
+        )
+
+        CfnOutput(self, 'bucketname', value=bucket.bucket_name)
+        CfnOutput(self, 'bucketarn', value=bucket.bucket_arn)
 
         apigw.LambdaRestApi(
             self, 'Endpoint',
