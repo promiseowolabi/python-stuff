@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+  name: CIFS Action
+  tasks:
+  - name: Create cifs_server
+    na_ontap_cifs_server:
+      hostname: "198.19.X.X"
+      username: "fsxadmin"
+      password: "xxxxxxxxxx"
+      validate_certs: false
+      https: true
+      vserver: "fsx"
+      name: "fsx"
+      service_state: "started"
+      workgroup: "WORKGROUP"
+      use_rest: "never"
