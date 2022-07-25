@@ -1,0 +1,29 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyNonGP2VolType",
+        "Effect": "Deny",
+        "Action": [
+          "ec2:CreateVolume",
+          "ec2:ImportInstance",
+          "ec2:ImportVolume",
+          "ec2:RunInstances"
+        ],
+        "Resource": [
+          "arn:aws:ec2:*:*:volume/*"
+        ],
+        "Condition": {
+          "StringNotEquals": {
+            "ec2:VolumeType": [
+              "gp3",
+              "st1",
+              "sc1",
+              "io1",
+              "io2"
+            ]
+          }
+        }
+      }
+    ]
+  }
